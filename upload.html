@@ -1,0 +1,179 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <title>NDA File Uploader</title>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+
+    <style>
+      .sk-three-bounce {
+        margin: 40px auto;
+        width: 200px;
+        text-align: center;
+      }
+
+      .sk-three-bounce .sk-child {
+        width: 10px;
+        height: 10px;
+        background-color: #333;
+        border-radius: 100%;
+        display: inline-block;
+        -webkit-animation: sk-three-bounce 1.4s ease-in-out 0s infinite both;
+        animation: sk-three-bounce 1.4s ease-in-out 0s infinite both;
+      }
+
+      .sk-three-bounce .sk-bounce1 {
+        -webkit-animation-delay: -0.32s;
+        animation-delay: -0.32s;
+      }
+
+      .sk-three-bounce .sk-bounce2 {
+        -webkit-animation-delay: -0.16s;
+        animation-delay: -0.16s;
+      }
+
+      @-webkit-keyframes sk-three-bounce {
+        0%,
+        80%,
+        100% {
+          -webkit-transform: scale(0);
+          transform: scale(0);
+        }
+
+        40% {
+          -webkit-transform: scale(1);
+          transform: scale(1);
+        }
+      }
+
+      @keyframes sk-three-bounce {
+        0%,
+        80%,
+        100% {
+          -webkit-transform: scale(0);
+          transform: scale(0);
+        }
+
+        40% {
+          -webkit-transform: scale(1);
+          transform: scale(1);
+        }
+      }
+
+      .loading-wrapper {
+        position: absolute;
+        top: 0;
+        background-color: #f5fafd;
+        width: 100%;
+        height: 100%;
+        opacity: 0.8;
+        z-index: 100;
+        justify-content: center;
+        align-items: center;
+      }
+
+      .test {
+        position: relative;
+      }
+    </style>
+  </head>
+
+  <body>
+    <div class="limiter test">
+      <div class="container-login100">
+        <div class="wrap-login100">
+          <form
+            id="file-upload-form"
+            class="login100-form validate-form"
+            action="http://182.160.154.162:8000/upload"
+            method="POST"
+            enctype="multipart/form-data"
+            onsubmit="onSubmitStart()"
+          >
+            <span class="login100-form-title p-b-26">
+              Upload NDA File
+            </span>
+            <span class="login100-form-title p-b-48">
+              <i class="zmdi zmdi-font"></i>
+            </span>
+
+            <div
+              class="wrap-input100 validate-input"
+              data-validate="Valid email is: a@b.c"
+            >
+              <span class="input200 p-b-20">
+                NDA DOCX:
+              </span>
+              <input
+                id="file-input1"
+                class="input100"
+                type="file"
+                name="file1"
+                accept="application/vnd.openxmlformats-officedocument.wordprocessingml.document"
+                onchange="onGetDocxFile()"
+              />
+            </div>
+            <div
+              class="wrap-input100 validate-input"
+              data-validate="Valid email is: a@b.c"
+            >
+              <span class="input200 p-b-20">
+                Search Strings:
+              </span>
+              <input
+                id="file-input2"
+                class="input100"
+                type="file"
+                name="file2"
+                accept="application/vnd.openxmlformats-officedocument.wordprocessingml.document"
+                onchange="onGetDocxFile()"
+              />
+            </div>
+
+            <div class="container-login100-form-btn">
+              <div class="wrap-login100-form-btn">
+                <div class="login100-form-bgbtn"></div>
+                <button
+                  type="submit"
+                  class="login100-form-btn"
+                  value="Submit"
+                  id="submit-btn"
+                >
+                  Upload File
+                </button>
+              </div>
+            </div>
+          </form>
+        </div>
+      </div>
+      <div id="loading-wrapper" class="loading-wrapper">
+        <div class="sk-three-bounce">
+          <h4>Uploading File</h4>
+          <div class="sk-child sk-bounce1"></div>
+          <div class="sk-child sk-bounce2"></div>
+          <div class="sk-child sk-bounce3"></div>
+        </div>
+      </div>
+    </div>
+    <script>
+      const fileUploadForm = document.getElementById("file-upload-form");
+      const fileInput1 = document.getElementById("file-input1");
+      const fileInput2 = document.getElementById("file-input2");
+      const submitBtn = document.getElementById("submit-btn");
+      const loadingWrapper = document.getElementById("loading-wrapper");
+
+      loadingWrapper.style.display = "none";
+
+      function onGetDocxFile() {
+        if (fileInput1.value === "" || fileInput2.value === "") {
+          submitBtn.disabled = true;
+        } else submitBtn.disabled = false;
+      }
+      document.onload = onGetDocxFile();
+      function onSubmitStart() {
+        submitBtn.disabled = true;
+        loadingWrapper.style.display = "flex";
+      }
+    </script>
+  </body>
+</html>
